@@ -16,6 +16,4 @@ This ACF field type is compatible with:
 4. Please refer to the description for more info regarding the field type settings
 
 ### Changelog
-
-= 1.0.0 =
-* Initial Release.
+Please see `readme.txt` for changelog

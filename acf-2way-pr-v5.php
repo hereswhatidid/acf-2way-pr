@@ -90,7 +90,7 @@ class acf_field_prbd extends acf_field_relationship {
 	/*
 		*  update_value()
 		*
-		*  This filter is appied to the $value before it is updated in the db
+		*  This filter is applied to the $value before it is updated in the db
 		*
 		*  @type	filter
 		*  @since	3.6

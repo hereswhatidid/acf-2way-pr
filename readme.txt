@@ -1,6 +1,6 @@
 === Advanced Custom Fields: Bidirectional Post Relation Field ===
 Contributors: Gabe Shackle
-Tags: acf, post relation
+Tags: acf, post relation, bidirectional, related posts
 Requires at least: 3.5
 Tested up to: 3.9.0
 Stable tag: trunk
@@ -11,7 +11,7 @@ Creates an extended version of the Related Post field type that is bidirectional
 
 == Description ==
 
-Creates an extended version of the Related Post field type that is bidirectional.
+Creates an extended version of the Related Post field type that is bidirectional.  This new field type will create a bidirectional relationship between posts (or any post type).
 
 = Compatibility =
 
