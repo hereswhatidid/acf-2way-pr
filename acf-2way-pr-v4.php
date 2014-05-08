@@ -21,8 +21,8 @@ class acf_field_prbd extends acf_field_relationship {
 	{
 		// vars
 		$this->name = 'bidirectional-post-relation';
-		$this->label = __('Bidirectional Post Relation');
-		$this->category = __("Relational",'acf'); // Basic, Content, Choice, etc
+		$this->label = __( 'Bidirectional Post Relation', 'acf' );
+		$this->category = __( 'Relational', 'acf' ); // Basic, Content, Choice, etc
 		$this->defaults = array(
 			'post_type'			=>	array('all'),
 			'max' 				=>	'',
@@ -50,29 +50,6 @@ class acf_field_prbd extends acf_field_relationship {
 		add_action('wp_ajax_acf/fields/relationship/query_posts', array($this, 'query_posts'));
 		add_action('wp_ajax_nopriv_acf/fields/relationship/query_posts', array($this, 'query_posts'));
 
-	}
-
-	/*
-	*  load_value()
-	*
-		*  This filter is applied to the $value after it is loaded from the db
-	*
-	*  @type	filter
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$value - the value found in the database
-	*  @param	$post_id - the $post_id from which the value was loaded
-	*  @param	$field - the field array holding all the field options
-	*
-	*  @return	$value - the value to be saved in the database
-	*/
-
-	function load_value( $value, $post_id, $field )
-	{
-		// Note: This function can be removed if not used
-		$this->current = $value;
-		return $value;
 	}
 
 	function clean_post_value( $value ) {
@@ -112,7 +89,6 @@ class acf_field_prbd extends acf_field_relationship {
 		return array_map( 'strval', $value );
 	}
 
-
 	/*
 	*  update_value()
 	*
@@ -131,6 +107,49 @@ class acf_field_prbd extends acf_field_relationship {
 
 	function update_value( $value, $post_id, $field )
 	{
+
+		if ( $post_id === $GLOBALS['post_id'] ) {
+			$new_value = $this->clean_post_value( $value );
+			$old_value = $this->clean_post_value( get_field( $field['name'] ) );
+
+			$new_values = array();
+			$missing_values = array();
+
+			if ( ( ! empty( $new_value ) ) && ( ! empty( $old_value ) ) ) {
+				$new_values = array_diff( $new_value, $old_value );
+				$missing_values = array_diff( $old_value, $new_value );
+			} else {
+				if ( ! empty( $new_value ) ) {
+					$new_values = array_map( 'strval', $new_value );
+				}
+				if ( ! empty( $old_value ) ) {
+					$missing_values = array_map( 'strval', $old_value );
+				}
+			}
+
+			foreach( $new_values as $value_add ) {
+				$existing_value = get_field( $field['name'], $value_add );
+
+				if ( ! empty( $existing_value ) ) {
+					$existing_value[] = $post_id;
+				} else {
+					$existing_value = array( $post_id );
+				}
+
+				update_field( $field['name'], $existing_value, $value_add );
+			}
+
+			foreach( $missing_values as $value_remove ) {
+				$existing_value = get_field( $field['name'], $value_remove );
+
+				if ( ! empty( $existing_value ) ) {
+					$existing_value = array_diff( $existing_value, array( $post_id ) );
+					update_field( $field['name'], $existing_value, $value_remove );
+				}
+
+			}
+		}
+
 		// validate
 		if( empty($value) )
 		{
@@ -164,58 +183,8 @@ class acf_field_prbd extends acf_field_relationship {
 
 		}
 
-
 		// save value as strings, so we can clearly search for them in SQL LIKE statements
-		$value_int = $value;
-
-		$value = array_map('strval', $value);
-
-		$orig_value = $this->clean_post_value( get_field( $field['name'] ) );
-
-//		if ( ! $current_value = get_field( $field['name'] ) ) {
-//			return $value;
-//		}
-//
-//		if ( is_array( $current_value ) ) {
-//			if ( is_object( $current_value[0] ) ) {
-//				$orig_value = array_map( 'strval', wp_list_pluck( $current_value, 'ID' ) );
-//			} else {
-//				$orig_value = array_map( 'strval', $current_value );
-//			}
-//		}
-
-		$missing_values = array_diff( $orig_value, $value );
-
-		$new_values = array_diff( $value, $orig_value );
-
-		$magic = 'test';
-
-//		$new_values = array_diff( $value_int, $orig_value );
-//
-//
-//
-		foreach( $missing_values as $id ) {
-			if ( $post_value = get_field( $field['name'], $id ) ) {
-				if ( is_array( $post_value ) ) {
-					$new_value = array_diff( $post_value, array( $post_id ) );
-					update_field( $field['name'], $new_value, intval( $id ) );
-				}
-			}
-		}
-
-		$compare = 'test';
-//
-//		$new_values = array_diff( $value_int, $orig_value );
-//
-		foreach( $new_values as $id ) {
-			if ( $post_value = get_field( $field['name'], intval( $id ) ) ) {
-				$post_value[] = strval( $post_id );
-			} else {
-				$post_value = array( strval( $post_id ) );
-			}
-			$test = update_field( $field['name'], $post_value, intval( $id ) );
-			$magic = $test;
-		}
+		$value = array_map( 'strval', $value );
 
 		return $value;
 	}
