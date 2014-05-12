@@ -195,5 +195,3 @@ class acf_field_prbd extends acf_field_relationship {
 
 // create field
 new acf_field_prbd();
-
-?>
