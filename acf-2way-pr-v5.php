@@ -1,8 +1,7 @@
 <?php
 
 class acf_field_prbd extends acf_field_relationship {
-	
-	
+
 	/*
 	*  __construct
 	*
@@ -62,10 +61,8 @@ class acf_field_prbd extends acf_field_relationship {
 
 		}
 
-
 		// force value to array
 		$value = acf_force_type_array( $value );
-
 
 		// array
 		foreach( $value as $k => $v ){
@@ -77,10 +74,8 @@ class acf_field_prbd extends acf_field_relationship {
 			}
 		}
 
-
 		// save value as strings, so we can clearly search for them in SQL LIKE statements
 		$value = array_map('strval', $value);
-
 
 		// return
 		return $value;
