@@ -2,12 +2,6 @@
 
 class acf_field_prbd extends acf_field_relationship {
 	
-	// vars
-	var $settings, // will hold info such as dir / path
-		$defaults, // will hold default field options
-		$current; // will hold value prior to update, used for comparison
-		
-		
 	/*
 	*  __construct
 	*
