@@ -1,5 +1,5 @@
 === Advanced Custom Fields: Bidirectional Post Relation Field ===
-Contributors: Gabe Shackle
+Contributors: hereswhatidid
 Tags: acf, post relation, bidirectional, related posts
 Requires at least: 3.5
 Tested up to: 3.9.1

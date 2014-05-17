@@ -21,6 +21,7 @@ SVNURL="http://plugins.svn.wordpress.org/$PLUGINSLUG" # Remote SVN repo on wordp
 echo ".........................................."
 echo 
 echo "Preparing to deploy WordPress plugin"
+echo "The slug is: $PLUGINSLUG"
 echo 
 echo ".........................................."
 echo 
