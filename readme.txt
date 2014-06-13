@@ -3,7 +3,7 @@ Contributors: hereswhatidid
 Tags: acf, post relation, bidirectional, related posts
 Requires at least: 3.5
 Tested up to: 3.9.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +12,8 @@ Creates an extended version of the Related Post field type that is bidirectional
 == Description ==
 
 Creates an extended version of the Related Post field type that is bidirectional.  This new field type will create a bidirectional relationship between posts (or any post type).
+
+This field is used in exactly the same way as the ACF [Relationship field](http://www.advancedcustomfields.com/resources/field-types/relationship/).
 
 = Compatibility =
 
@@ -27,6 +29,10 @@ This ACF field type is compatible with:
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+
+= 1.0.1 =
+* Bugfix: Changed field reference from 'name' to 'key' to prevent incorrect field being grabbed when another of the same name exists
+* Update: Added reference to ACF core Relationship field documentation
 
 = 1.0.0 =
 * Initial Release.

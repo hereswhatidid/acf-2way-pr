@@ -104,7 +104,7 @@ class acf_field_prbd extends acf_field_relationship {
 
 		if ( $post_id === $GLOBALS['post_id'] ) {
 			$new_value = $this->clean_post_value( $value );
-			$old_value = $this->clean_post_value( get_field( $field['name'] ) );
+			$old_value = $this->clean_post_value( get_field( $field['key'] ) );
 
 			$new_values = array();
 			$missing_values = array();
@@ -122,7 +122,7 @@ class acf_field_prbd extends acf_field_relationship {
 			}
 
 			foreach( $new_values as $value_add ) {
-				$existing_value = get_field( $field['name'], $value_add );
+				$existing_value = get_field( $field['key'], $value_add );
 
 				if ( ! empty( $existing_value ) ) {
 					$existing_value[] = $post_id;
@@ -130,15 +130,15 @@ class acf_field_prbd extends acf_field_relationship {
 					$existing_value = array( $post_id );
 				}
 
-				update_field( $field['name'], $existing_value, $value_add );
+				update_field( $field['key'], $existing_value, $value_add );
 			}
 
 			foreach( $missing_values as $value_remove ) {
-				$existing_value = get_field( $field['name'], $value_remove );
+				$existing_value = get_field( $field['key'], $value_remove );
 
 				if ( ! empty( $existing_value ) ) {
 					$existing_value = array_diff( $existing_value, array( $post_id ) );
-					update_field( $field['name'], $existing_value, $value_remove );
+					update_field( $field['key'], $existing_value, $value_remove );
 				}
 
 			}
