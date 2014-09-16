@@ -2,8 +2,8 @@
 Contributors: hereswhatidid
 Tags: acf, post relation, bidirectional, related posts
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: 1.0.1
+Tested up to: 4.0.0
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,9 @@ This ACF field type is compatible with:
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+
+= 1.0.2 =
+* Bugfix: Fixed saving error when Post Object was selected as field type
 
 = 1.0.1 =
 * Bugfix: Changed field reference from 'name' to 'key' to prevent incorrect field being grabbed when another of the same name exists
