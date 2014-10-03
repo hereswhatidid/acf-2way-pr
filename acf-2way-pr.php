@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields: 2-Way Post Relation
 Plugin URI: https://github.com/hereswhatidid/acf-2way-pr/
 Description: Creates an extended version of the Related Post field type that is bidirectional.
-Version: 1.0.2
+Version: 1.0.3
 Author: Gabe Shackle
 Author URI: http://hereswhatidid.com/
 License: GPLv2 or later

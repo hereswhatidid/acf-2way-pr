@@ -3,7 +3,7 @@ Contributors: hereswhatidid
 Tags: acf, post relation, bidirectional, related posts
 Requires at least: 3.5
 Tested up to: 4.0.0
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,6 @@ This field is used in exactly the same way as the ACF [Relationship field](http:
 = Compatibility =
 
 This ACF field type is compatible with:
-* ACF 5
 * ACF 4
 
 == Installation ==
@@ -29,6 +28,9 @@ This ACF field type is compatible with:
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+
+= 1.0.3 =
+* Removed support for ACF 5 temporarily
 
 = 1.0.2 =
 * Bugfix: Fixed saving error when Post Object was selected as field type

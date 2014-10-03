@@ -5,7 +5,6 @@ Creates an extended version of the Related Post field type that is bidirectional
 ### Compatibility
 
 This ACF field type is compatible with:
-* ACF 5
 * ACF 4
 
 ### Installation
