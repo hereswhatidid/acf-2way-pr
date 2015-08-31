@@ -46,6 +46,16 @@ class acf_field_prbd extends acf_field_relationship {
 		acf_field::__construct();
 
 	}
+        
+        function input_admin_enqueue_scripts() {
+		
+		$dir = plugin_dir_url( __FILE__ );		
+		
+		// register & include JS
+		wp_register_script( 'acf-input-twoway', "{$dir}2way.js" );
+		wp_enqueue_script('acf-input-twoway');
+                
+	}
 
 	function clean_post_value( $value ) {
 		// validate
@@ -56,7 +66,7 @@ class acf_field_prbd extends acf_field_relationship {
 		}
 
 		// force value to array
-		$value = acf_force_type_array( $value );
+		$value = acf_get_array( $value );
 
 		// array
 		foreach( $value as $k => $v ){
@@ -91,86 +101,86 @@ class acf_field_prbd extends acf_field_relationship {
 		*
 		*  @return	$value - the modified value
 		*/
-//
-//	function update_value( $value, $post_id, $field ) {
-//
-//		if ( $post_id === $GLOBALS['post_id'] ) {
-//			$new_value = $this->clean_post_value( $value );
-//			$old_value = $this->clean_post_value( get_field( $field['key'] ) );
-//
-//			$new_values = array();
-//			$missing_values = array();
-//
-//			if ( ( ! empty( $new_value ) ) && ( ! empty( $old_value ) ) ) {
-//				$new_values = array_diff( $new_value, $old_value );
-//				$missing_values = array_diff( $old_value, $new_value );
-//			} else {
-//				if ( ! empty( $new_value ) ) {
-//					$new_values = array_map( 'strval', $new_value );
-//				}
-//				if ( ! empty( $old_value ) ) {
-//					$missing_values = array_map( 'strval', $old_value );
-//				}
-//			}
-//
-//			foreach( $new_values as $value_add ) {
-//				$existing_value = get_field( $field['key'], $value_add );
-//
-//				if ( ! empty( $existing_value ) ) {
-//					$existing_value[] = $post_id;
-//				} else {
-//					$existing_value = array( $post_id );
-//				}
-//
-//				update_field( $field['key'], $existing_value, $value_add );
-//			}
-//
-//			foreach( $missing_values as $value_remove ) {
-//				$existing_value = get_field( $field['key'], $value_remove );
-//
-//				if ( ! empty( $existing_value ) ) {
-//					$existing_value = array_diff( $existing_value, array( $post_id ) );
-//					update_field( $field['key'], $existing_value, $value_remove );
-//				}
-//
-//			}
-//		}
-//
-//		// validate
-//		if( empty($value) ) {
-//
-//			return $value;
-//
-//		}
-//
-//
-//		// force value to array
-//		$value = acf_force_type_array( $value );
-//
-//
-//		// array
-//		foreach( $value as $k => $v ){
-//
-//			// object?
-//			if( is_object($v) && isset($v->ID) )
-//			{
-//				$value[ $k ] = $v->ID;
-//			}
-//		}
-//
-//
-//		// save value as strings, so we can clearly search for them in SQL LIKE statements
-//		$value = array_map('strval', $value);
-//
-//
-//		// return
-//		return $value;
-//
-//	}
+
+	function update_value( $value, $post_id, $field ) {
+
+		if ( $post_id === $GLOBALS['post_id'] ) {
+			$new_value = $this->clean_post_value( $value );
+			$old_value = $this->clean_post_value( get_field( $field['key'] ) );
+
+			$new_values = array();
+			$missing_values = array();
+
+			if ( ( ! empty( $new_value ) ) && ( ! empty( $old_value ) ) ) {
+				$new_values = array_diff( $new_value, $old_value );
+				$missing_values = array_diff( $old_value, $new_value );
+			} else {
+				if ( ! empty( $new_value ) ) {
+					$new_values = array_map( 'strval', $new_value );
+				}
+				if ( ! empty( $old_value ) ) {
+					$missing_values = array_map( 'strval', $old_value );
+				}
+			}
+
+			foreach( $new_values as $value_add ) {
+				$existing_value = get_field( $field['key'], $value_add );
+
+				if ( ! empty( $existing_value ) ) {
+					$existing_value[] = $post_id;
+				} else {
+					$existing_value = array( $post_id );
+				}
+
+				update_field( $field['key'], $existing_value, $value_add );
+			}
+
+			foreach( $missing_values as $value_remove ) {
+				$existing_value = get_field( $field['key'], $value_remove );
+
+				if ( ! empty( $existing_value ) ) {
+					$existing_value = array_diff( $existing_value, array( $post_id ) );
+					update_field( $field['key'], $existing_value, $value_remove );
+				}
+
+			}
+		}
+
+		// validate
+		if( empty($value) ) {
+
+			return $value;
+
+		}
+
+
+		// force value to array
+		$value = acf_get_array( $value );
+
+
+		// array
+		foreach( $value as $k => $v ){
+
+			// object?
+			if( is_object($v) && isset($v->ID) )
+			{
+				$value[ $k ] = $v->ID;
+			}
+		}
+
+
+		// save value as strings, so we can clearly search for them in SQL LIKE statements
+		$value = array_map('strval', $value);
+
+
+		// return
+		return $value;
+
+	}
 
 	
 }
 
 
 // create field
-//new acf_field_prbd();
+new acf_field_prbd();
